@@ -10,7 +10,6 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -66,7 +65,7 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
 
             // go through each pair of key/value in this job
-            for(Map.Entry<String, String> e : row.entrySet()) {
+            for(HashMap.Entry<String, String> e : row.entrySet()) {
                 // get the data of this entry (the value, aka "thing on the right")
                 String aValue = e.getValue();
                 // if the stored data/value contains our search term
