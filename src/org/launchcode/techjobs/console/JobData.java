@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -54,6 +55,35 @@ public class JobData {
         return allJobs;
     }
 
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> matchingJobs = new ArrayList<HashMap<String, String>>();
+
+        // go through each existing job (just as with findByColumnAndValue)
+        for (HashMap<String, String> row : allJobs) {
+
+            // go through each pair of key/value in this job
+            for(Map.Entry<String, String> e : row.entrySet()) {
+                // get the data of this entry (the value, aka "thing on the right")
+                String aValue = e.getValue();
+                // if the stored data/value contains our search term
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    // if matchingJobs array doesn't already have this job
+                    if(!matchingJobs.contains(row)) {
+                        // add to matching jobs
+                        matchingJobs.add(row);
+                    }
+                }
+            }
+        }
+
+        return matchingJobs;
+
+    }
+
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
@@ -76,7 +106,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
